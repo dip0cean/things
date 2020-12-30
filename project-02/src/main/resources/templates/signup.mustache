@@ -1,0 +1,32 @@
+{{>layout/header}}
+<div class="position-relative me-5 ms-5 pe-5 ps-5">
+    <div class="text-center mt-5 mb-5">
+        <h1>Sign Up</h1>
+    </div>
+    <div class="me-5 ms-5 pe-5 ps-5">
+        <form class="row g-3">
+            <div class="col-12">
+                <label for="userId" class="form-label">아이디</label>
+                <input type="text" class="form-control" id="userId">
+            </div>
+            <div class="col-md-6">
+                <label for="userPw" class="form-label">비밀번호</label>
+                <input type="password" class="form-control" id="userPw">
+            </div>
+            <div class="col-md-6">
+                <label for="userNick" class="form-label">닉네임</label>
+                <input type="text" class="form-control" id="userNick">
+            </div>
+            <div class="col-12">
+                <label for="userIntro" class="form-label">자기소개</label>
+                <textarea class="form-control" id="userIntro" placeholder="자기소개를 입력하세요."
+                          style="height: 400px; resize: none;"></textarea>
+            </div>
+            <div class="col-12">
+                <button type="button" class="btn btn-primary" id="btn-signup">회원 가입</button>
+                <a class="btn btn-primary" href="/" role="button">뒤로 가기</a>
+            </div>
+        </form>
+    </div>
+</div>
+{{>layout/userFooter}}

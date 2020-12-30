@@ -1,0 +1,28 @@
+{{>layout/header}}
+<div class="position-relative me-5 ms-5 pe-5 ps-5">
+    <div class="text-center mt-5 mb-5">
+        <h1>{{#post}}Modified{{/post}}{{^post}}Create{{/post}} Page</h1>
+    </div>
+    <div class="me-5 ms-5 pe-5 ps-5">
+        <div class="col-12">
+            <label for="title" class="form-label">Title</label>
+            <input type="text" class="form-control" id="title" value="{{#post}}{{title}}{{/post}}">
+        </div>
+        <div class="col-12">
+            <label for="content" class="form-label">Content</label>
+            <textarea class="form-control" id="content" placeholder="내용을 입력하세요."
+                      style="height: 400px; resize: none;">{{#post}}{{content}}{{/post}}</textarea>
+        </div>
+        <div class="col-12">
+            {{^post}}
+                <button type="button" class="btn btn-primary" id="btn-post-create">작성</button>
+            {{/post}}
+            {{#post}}
+                <input type="hidden" id="id" value="{{id}}">
+                <button type="button" class="btn btn-primary" id="btn-post-update">수정</button>
+            {{/post}}
+            <a class="btn btn-primary" href="/" role="button">목록</a>
+        </div>
+    </div>
+</div>
+{{>layout/postFooter}}

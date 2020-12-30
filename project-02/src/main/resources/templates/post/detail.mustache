@@ -1,0 +1,74 @@
+{{>layout/header}}
+<div class="position-relative me-5 ms-5 pe-5 ps-5">
+    <div class="text-center mt-5 mb-5">
+        <h1>Post Detail</h1>
+    </div>
+    <div class="me-5 ms-5 pe-5 ps-5">
+        <div class="col-12">
+            <div class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Title</span>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                       aria-describedby="basic-addon1" value="{{post.title}}" readonly style="background-color: white;">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+            <span class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Writer</span>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                       aria-describedby="basic-addon1" value="{{post.userNick}}" readonly
+                       style="background-color: white;">
+            </span>
+            </div>
+            <div class="col-md-6">
+            <span class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">Date</span>
+                <input type="text" class="form-control" placeholder="Username" aria-label="Username"
+                       aria-describedby="basic-addon1" value="{{post.createdDate}}" readonly
+                       style="background-color: white;">
+            </span>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="input-group">
+                <span class="input-group-text">Content</span>
+                <textarea class="form-control" aria-label="With textarea" readonly
+                          style="resize: none; height: 400px; background-color: white">{{post.content}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="text-end mt-5">
+        <a class="btn btn-primary" href="/post/1" role="button">목록</a>
+        <button class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="update-path">
+            수정
+        </button>
+        <button class="btn btn-primary" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                id="delete-path">
+            삭제
+        </button>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">비밀번호 확인</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <input type="password" placeholder="비밀번호를 입력하세요." id="checkPw">
+                    <input type="hidden" value="{{post.user_id}}" id="user_id">
+                    <input type="hidden" value="{{post.id}}" id="id">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">닫기</button>
+                <button type="button" class="btn btn-primary" id="btn-checkPw">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+{{>layout/postFooter}}

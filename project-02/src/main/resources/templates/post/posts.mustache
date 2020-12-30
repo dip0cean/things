@@ -1,0 +1,71 @@
+{{>layout/header}}
+<div class="position-relative me-5 ms-5 pe-5 ps-5">
+    <div class="text-center mb-5 mt-5">
+        <h1>Posts</h1>
+
+    </div>
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th scope="col">No</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col">Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        {{#posts}}
+            <tr>
+                <th scope="row">{{id}}</th>
+                <td><a href="/post/detail/{{id}}">{{title}}</a></td>
+                <td><a href="/user/detail/{{user_id}}">{{userNick}}</a></td>
+                <td class="created-date">{{createdDate}}</td>
+            </tr>
+        {{/posts}}
+        </tbody>
+    </table>
+    <div class="text-end">
+        <a class="btn btn-primary" href="/post/create" role="button">글 작성</a>
+    </div>
+    <div class="text-center position-relative">
+        <ul class="pagination position-absolute top-100 start-50 translate-middle">
+            <li class="page-item">
+                <a class="page-link" id="btn-prev" href="#" style="display: none;">Prev</a>
+            </li>
+            {{#block}}
+                <li class="page-item" id="{{.}}">
+                    <a class="page-link" href="/post/{{.}}">{{.}}</a>
+                </li>
+            {{/block}}
+            <li class="page-item">
+                <a class="page-link" id="btn-next" href="#" style="display: none;">Next</a>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $(function () {
+        const block = {{block}};
+        const blockLength = $(block).length;
+        const firstBlock = $(block).get(0);
+        const lastBlock = $(block).get(blockLength - 1);
+
+        // 페이지 번호
+        const path = window.location.pathname;
+        const page = path.split("/").pop();
+
+        // prev
+        if (page > 10 && firstBlock != null) {
+            $('#btn-prev').attr('href', '/post/' + (firstBlock - 1)).css('display', 'inline-block');
+        }
+
+        // next
+        if (lastBlock < {{blockSize}} && blockLength === 10) {
+            $('#btn-next').attr('href', '/post/' + (lastBlock + 1)).css('display', 'inline-block');
+        }
+
+        // 현재 페이지 active
+        $('#' + page).addClass('active');
+    })
+</script>
+{{>layout/postFooter}}

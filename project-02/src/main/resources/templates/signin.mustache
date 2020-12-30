@@ -1,0 +1,36 @@
+{{>layout/header}}
+<div class="position-relative me-5 ms-5 pe-5 ps-5 text-center">
+    <div class="text-center mt-5 mb-5">
+        <h1>씽즈 - 회원/게시판 CRUD</h1>
+    </div>
+    {{^userSession}}
+<!-- 세션 있을 때 -->
+        <div class="row d-inline">
+            <div class="col-12" style="width: 300px; display: inline-block;">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">ID</span>
+                    <input type="text" class="form-control" placeholder="아이디를 입력하세요." aria-label="Username"
+                           aria-describedby="basic-addon1" style="background-color: white;" id="signin-id">
+                </div>
+            </div>
+            <div class="col-12" style="width: 300px; display: inline-block;">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">PW</span>
+                    <input type="password" class="form-control" placeholder="비밀번호를 입력하세요." aria-label="Username"
+                           aria-describedby="basic-addon1" style="background-color: white;" id="signin-pw">
+                </div>
+            </div>
+        </div>
+        <div>
+            <button class="btn btn-warning text-white" id="btn-signin">로그인</button>
+            <a href="/user/signup" class="btn btn-primary">회원 가입</a>
+        </div>
+    {{/userSession}}
+    {{#userSession}}
+<!-- 세션 없을 때 -->
+        <a href="/signout" class="btn btn-danger text-white" id="btn-signout">로그아웃</a>
+        <a href="/user/detail/{{userSession.id}}" class="btn btn-primary">마이페이지</a>
+        <a href="/post/1" class="btn btn-primary">게시판</a>
+    {{/userSession}}
+</div>
+{{>layout/userFooter}}

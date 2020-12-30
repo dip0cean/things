@@ -1,0 +1,48 @@
+{{>layout/header}}
+<div class="position-relative me-5 ms-5 pe-5 ps-5">
+    <div class="text-center mt-5 mb-5">
+        <h1>User Update</h1>
+    </div>
+    <div class="me-5 ms-5 pe-5 ps-5">
+        <div class="row">
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">아이디</span>
+                    <input type="text" class="form-control" placeholder="ID" aria-label="Username"
+                           aria-describedby="basic-addon1" value="{{user.userId}}" style="background-color: white;"
+                           id="userId">
+                    <!--user 아이디 값-->
+                    <input type="hidden" id="id" value="{{user.id}}">
+                </div>
+            </div>
+            <div class="col-4">
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon1">비밀번호</span>
+                    <input type="password" class="form-control" placeholder="PW" aria-label="Username"
+                           aria-describedby="basic-addon1" style="background-color: white;" id="userPw">
+                </div>
+            </div>
+            <div class="col-4">
+            <span class="input-group mb-3">
+                <span class="input-group-text" id="basic-addon1">닉네임</span>
+                <input type="text" class="form-control" placeholder="Nickname" aria-label="Username"
+                       aria-describedby="basic-addon1" value="{{user.userNick}}"
+                       style="background-color: white;" id="userNick">
+            </span>
+            </div>
+        </div>
+        <div class="col-12">
+            <div class="input-group">
+                <span class="input-group-text">자기소개</span>
+                <textarea class="form-control" aria-label="With textarea"
+                          style="resize: none; height: 400px; background-color: white"
+                          id="userIntro">{{user.userIntro}}</textarea>
+            </div>
+        </div>
+    </div>
+    <div class="text-end mt-5">
+        <button class="btn btn-primary" role="button" id="btn-user-update">수정</button>
+        <a class="btn btn-primary" href="/user/detail/{{user.id}}" role="button">취소</a>
+    </div>
+</div>
+{{>layout/userFooter}}
