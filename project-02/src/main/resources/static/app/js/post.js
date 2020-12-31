@@ -1,3 +1,17 @@
+function deletePost(deleteData) {
+    $.ajax({
+        method: 'DELETE',
+        url: '/api/post/delete',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify(deleteData)
+    }).done(function () {
+        alert('성공적으로 삭제되었습니다.');
+        window.location.href = '/post/1';
+    }).fail(function () {
+        alert('알 수 없는 오류로 게시글을 삭제 할 수 없습니다. 다시 시도 해주세요.');
+    });
+}
+
 const main = {
     init: function () {
         const _this = this;
@@ -37,20 +51,10 @@ const main = {
                 if (path === 'update') {
                     window.location.href = '/post/update/' + $('#id').val();
                 } else {
-                    const deleteDate = {
+                    const deleteData = {
                         id: $('#id').val()
                     }
-                    $.ajax({
-                        method: 'DELETE',
-                        url: '/api/post/delete',
-                        contentType: 'application/json; charset=utf-8',
-                        data: JSON.stringify(deleteDate)
-                    }).done(function () {
-                        alert('성공적으로 삭제되었습니다.');
-                        window.location.href = '/post/1';
-                    }).fail(function () {
-                        alert('알 수 없는 오류로 게시글을 삭제 할 수 없습니다. 다시 시도 해주세요.');
-                    })
+                    deletePost(deleteData)
                 }
             } else {
                 alert('비밀번호가 일치하지 않습니다.');

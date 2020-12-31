@@ -4,11 +4,9 @@ import com.things.project02.dto.PostDto;
 import com.things.project02.dto.UserDto;
 import com.things.project02.service.post.PostService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 
@@ -31,5 +29,12 @@ public class PostApiController {
         UserDto.UserRes userRes = (UserDto.UserRes) session.getAttribute("userSession");
         postService.updatePost(postReq, userRes);
         return ResponseEntity.ok(postReq.getId());
+    }
+
+    // 게시글 삭제
+    @DeleteMapping("/api/post/delete")
+    public ResponseEntity deletePost(@RequestBody PostDto.PostReq postReq) {
+        postService.deletePost(postReq);
+        return ResponseEntity.ok().build();
     }
 }

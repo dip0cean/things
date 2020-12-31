@@ -27,7 +27,7 @@ public class PostService {
         User user = userRepository.findById(userRes.getId()).orElse(null);
         assert user != null;
         user.addPost(postReq.toEntity(user));
-        userRepository.save(user);
+        userRepository.saveAndFlush(user);
         return user.getPosts().get(user.getPosts().size() - 1).getId();
     }
 
@@ -48,6 +48,12 @@ public class PostService {
     public void updatePost(PostDto.PostReq postReq, UserDto.UserRes userRes) {
         Post post = postRepository.findPostById(postReq.getId());
         post.updatePost(postReq.toEntity(new UserDto.UserReq(userRes).toEntity()));
+        postRepository.flush();
+    }
+
+    // 게시물 삭제
+    public void deletePost(PostDto.PostReq postReq) {
+        postRepository.deleteById(postReq.getId());
         postRepository.flush();
     }
 }
