@@ -3,7 +3,6 @@ package com.things.project02.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -23,8 +22,7 @@ public class Post extends BaseTimeEntity {
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "USER_ID")
-    @Setter
+    @JoinColumn(name = "USER_ID")//,insertable=false, updatable = false)
     private User user;
 
     @Builder

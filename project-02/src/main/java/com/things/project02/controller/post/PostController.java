@@ -1,16 +1,17 @@
 package com.things.project02.controller.post;
 
 import com.things.project02.dto.PostDto;
-import com.things.project02.dto.UserDto;
 import com.things.project02.service.post.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,12 @@ public class PostController {
     @GetMapping("/post/{page}")
     public String posts(@PathVariable int page, Model model) {
         // 한 페이지에 로딩 될 게시글 목록
-        Page<PostDto.PostRes> posts = postService.findAll(page);
+        page = (page == 0) ? 0 : (page - 1);
+        Pageable              pageable = PageRequest.of(page, 10, Sort.Direction.DESC, "id");
+        Page<PostDto.PostRes> posts    = postService.findAll(pageable);
+        int                   next     = posts.hasNext() ? posts.nextPageable().getPageNumber() : 0;
+        int                   prev     = posts.hasPrevious() ? posts.previousPageable().getPageNumber() : 0;
+        System.out.println("prev = " + prev + " / next = " + next);
         model.addAttribute("posts", posts);
 
         // 페이지 블럭
@@ -57,7 +63,7 @@ public class PostController {
     @GetMapping("/post/update/{id}")
     public String update(@PathVariable Long id, Model model) {
         PostDto.PostRes postRes = postService.findById(id);
-        model.addAttribute("post",postRes);
+        model.addAttribute("post", postRes);
         return "/post/save";
     }
 

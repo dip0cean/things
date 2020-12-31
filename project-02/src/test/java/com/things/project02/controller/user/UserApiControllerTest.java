@@ -1,5 +1,6 @@
 package com.things.project02.controller.user;
 
+import com.things.project02.dto.UserDto;
 import com.things.project02.repository.user.UserRepository;
 import io.restassured.RestAssured;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
 
 import javax.transaction.Transactional;
 
@@ -27,24 +29,34 @@ class UserApiControllerTest {
     }
 
     @Autowired
-    private UserRepository userRepository;
+    private UserRepository  userRepository;
+    private MockHttpSession session;
 
     @Test
     void 회원가입() {
-        String requestBody =
-                "{\n" +
-                        "\"userId\": \"testId_1234\",\n" +
-                        "\"userPw\": \"testPw_1234\",\n" +
-                        "\"userNick\": \"testNick_1234\",\n" +
-                        "\"userIntro\": \"Hello World!\"\n" +
-                        "}";
-        RestAssured.given().log().all()
-                .contentType(MediaType.APPLICATION_JSON_VALUE)
-                .accept(MediaType.APPLICATION_JSON_VALUE)
-                .body(requestBody)
-                .when().post("/api/signup")
-                .then().log().all()
-                .statusCode(HttpStatus.OK.value());
+        for (int i = 1; i <= 1; i++) {
+            String requestBody =
+                    "{\n" +
+                            "\"userId\": \"testId_1234_" + i + "\",\n" +
+                            "\"userPw\": \"test\",\n" +
+                            "\"userNick\": \"testNick_1234_" + i + "\",\n" +
+                            "\"userIntro\": \"Hello World!\"\n" +
+                            "}";
+            RestAssured.given().log().all()
+                    .contentType(MediaType.APPLICATION_JSON_VALUE)
+                    .accept(MediaType.APPLICATION_JSON_VALUE)
+                    .body(requestBody)
+                    .when().post("/api/user/signup")
+                    .then().log().all()
+                    .statusCode(HttpStatus.OK.value());
+        }
+        UserDto.UserRes userRes = userRepository.findById((1L)).map(UserDto.UserRes::new).orElse(null);
+        session.setAttribute("userSession", userRes);
+        System.out.println(userRes.getUserId());
+    }
+
+    @Test
+    void 게시글작성() {
 
     }
 

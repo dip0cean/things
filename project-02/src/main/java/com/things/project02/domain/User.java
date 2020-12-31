@@ -31,7 +31,7 @@ public class User extends BaseTimeEntity {
     private String userIntro;
 
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "user")
-    private List<Post> posts = new ArrayList<>();
+    private final List<Post> posts = new ArrayList<>();
 
     @Builder
     public User(String userId, String userPw, String userNick, String userIntro) {
