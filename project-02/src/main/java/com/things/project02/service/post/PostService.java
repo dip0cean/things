@@ -1,5 +1,6 @@
 package com.things.project02.service.post;
 
+import com.things.project02.domain.Post;
 import com.things.project02.domain.User;
 import com.things.project02.dto.PostDto;
 import com.things.project02.dto.UserDto;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Transactional
 @RequiredArgsConstructor
@@ -21,7 +23,7 @@ public class PostService {
     private final UserRepository userRepository;
 
     // 게시물 작성
-    public Long create(PostDto.PostReq postReq, UserDto.UserRes userRes) {
+    public Long createPost(PostDto.PostReq postReq, UserDto.UserRes userRes) {
         User user = userRepository.findById(userRes.getId()).orElse(null);
         assert user != null;
         user.addPost(postReq.toEntity(user));
@@ -40,6 +42,13 @@ public class PostService {
         page = (page == 0) ? 0 : (page - 1);
         Pageable pageable = PageRequest.of(page, postSize, Sort.Direction.DESC, "id");
         return postRepository.findAll(pageable).map(PostDto.PostRes::new);
+    }
+
+    // 게시물 업데이트
+    public void updatePost(PostDto.PostReq postReq, UserDto.UserRes userRes) {
+        Post post = postRepository.findPostById(postReq.getId());
+        post.updatePost(postReq.toEntity(new UserDto.UserReq(userRes).toEntity()));
+        postRepository.flush();
     }
 }
 

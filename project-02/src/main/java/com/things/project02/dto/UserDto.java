@@ -12,7 +12,7 @@ public class UserDto {
     @AllArgsConstructor
     public static class UserReq {
 
-        private Long id;
+        private Long   id;
         private String userId;
         private String userPw;
         private String userNick;
@@ -54,7 +54,7 @@ public class UserDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class UserRes {
-        private Long id;
+        private Long   id;
         private String userId;
         private String userPw;
         private String userNick;

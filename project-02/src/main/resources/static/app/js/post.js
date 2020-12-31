@@ -91,8 +91,8 @@ const main = {
             url: '/api/post/update',
             contentType: 'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function () {
-            window.location.href = '/post/detail/' + data.id;
+        }).done(function (id) {
+            window.location.href = '/post/detail/' + id;
         }).fail(function () {
             alert('알 수 없는 오류로 게시글을 수정 할 수 없습니다.');
         });

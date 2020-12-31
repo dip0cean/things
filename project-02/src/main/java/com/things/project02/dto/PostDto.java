@@ -10,8 +10,9 @@ public class PostDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class PostReq {
-        private String title;
-        private String content;
+        private Long            id;
+        private String          title;
+        private String          content;
         private UserDto.UserReq userReq;
 
         @Builder
@@ -41,10 +42,10 @@ public class PostDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class PostRes {
-        private Long id;
+        private Long   id;
         private String title;
         private String content;
-        private Long user_id;
+        private Long   user_id;
         private String userNick;
         private String createdDate;
         private String updatedDate;
