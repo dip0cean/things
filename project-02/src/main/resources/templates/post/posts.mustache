@@ -27,45 +27,14 @@
     <div class="text-end">
         <a class="btn btn-primary" href="/post/create" role="button">글 작성</a>
     </div>
-    <div class="text-center position-relative">
-        <ul class="pagination position-absolute top-100 start-50 translate-middle">
-            <li class="page-item">
-                <a class="page-link" id="btn-prev" href="#" style="display: none;">Prev</a>
-            </li>
-            {{#block}}
-                <li class="page-item" id="{{.}}">
-                    <a class="page-link" href="/post/{{.}}">{{.}}</a>
-                </li>
-            {{/block}}
-            <li class="page-item">
-                <a class="page-link" id="btn-next" href="#" style="display: none;">Next</a>
-            </li>
+    <div class="pagination-wrapper">
+        <ul class="pagination" id="posts">
         </ul>
     </div>
 </div>
 <script>
     $(function () {
-        const block = {{block}};
-        const blockLength = $(block).length;
-        const firstBlock = $(block).get(0);
-        const lastBlock = $(block).get(blockLength - 1);
-
-        // 페이지 번호
-        const path = window.location.pathname;
-        const page = path.split("/").pop();
-
-        // prev
-        if (page > 10 && firstBlock != null) {
-            $('#btn-prev').attr('href', '/post/' + (firstBlock - 1)).css('display', 'inline-block');
-        }
-
-        // next
-        if (lastBlock < {{blockSize}} && blockLength === 10) {
-            $('#btn-next').attr('href', '/post/' + (lastBlock + 1)).css('display', 'inline-block');
-        }
-
-        // 현재 페이지 active
-        $('#' + page).addClass('active');
+        $('#posts').pagination({{posts.totalElements}});
     })
 </script>
 {{>layout/postFooter}}

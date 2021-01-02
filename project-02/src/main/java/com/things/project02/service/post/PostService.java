@@ -21,14 +21,10 @@ public class PostService {
     // 게시물 작성
     public Long createPost(PostDto.PostReq postReq, UserDto.UserRes userRes) {
         User user = new UserDto.UserReq(userRes).toEntity();
-//        postRepository.saveAndFlush(postReq.toEntity(user));
-//        User user = userRepository.findById(userRes.getId()).orElse(null);
         assert user != null;
         System.out.println(user.getUserId());
         user.addPost(postReq.toEntity(user));
         userRepository.saveAndFlush(user);
-//        Post post = postRepository.saveAndFlush(postReq.toEntity(new UserDto.UserReq(userRes).toEntity()));
-//        return post.getId();
         return user.getPosts().get(user.getPosts().size() - 1).getId();
     }
 

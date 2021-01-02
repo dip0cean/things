@@ -4,7 +4,7 @@
         <h1>씽즈 - 회원/게시판 CRUD</h1>
     </div>
     {{^userSession}}
-<!-- 세션 있을 때 -->
+<!-- 세션 없을 때 -->
         <div class="row d-inline">
             <div class="col-12" style="width: 300px; display: inline-block;">
                 <div class="input-group mb-3">
@@ -27,10 +27,10 @@
         </div>
     {{/userSession}}
     {{#userSession}}
-<!-- 세션 없을 때 -->
+<!-- 세션 있을 때 -->
         <a href="/signout" class="btn btn-danger text-white" id="btn-signout">로그아웃</a>
         <a href="/user/detail/{{userSession.id}}" class="btn btn-primary">마이페이지</a>
-        <a href="/post/1" class="btn btn-primary">게시판</a>
+        <a href="/post" class="btn btn-primary">게시판</a>
     {{/userSession}}
 </div>
 {{>layout/userFooter}}
